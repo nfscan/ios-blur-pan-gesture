@@ -42,7 +42,6 @@
  POSSIBILITY OF SUCH DAMAGE.
  
  Copyright (C) 2013 Apple Inc. All Rights Reserved.
- Modified work Copyright (c) 2015 Paulo Miguel Almeida Rodenas <paulo.ubuntu@gmail.com>
  
  
  Copyright © 2013 Apple Inc. All rights reserved.
@@ -103,20 +102,49 @@
 @implementation UIImage (ImageEffects)
 
 
-- (UIImage *)applyLightEffectWithRectOfInterest:(CGRect) rectOfInterest
+- (UIImage *)applyLightEffect
 {
     UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:0.3];
-    return [self applyBlurWithRadius:30 tintColor:tintColor saturationDeltaFactor:1.8 rectOfInterest:rectOfInterest];
+    return [self applyBlurWithRadius:20 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
 
-- (UIImage *)applyDarkEffectWithRectOfInterest:(CGRect) rectOfInterest
+- (UIImage *)applyExtraLightEffect
+{
+    UIColor *tintColor = [UIColor colorWithWhite:0.97 alpha:0.82];
+    return [self applyBlurWithRadius:20 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+}
+
+
+- (UIImage *)applyDarkEffect
 {
     UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.73];
-    return [self applyBlurWithRadius:20 tintColor:tintColor saturationDeltaFactor:1.8 rectOfInterest:rectOfInterest];
+    return [self applyBlurWithRadius:20 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
-- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor rectOfInterest:(CGRect) rectOfInterest
+
+- (UIImage *)applyTintEffectWithColor:(UIColor *)tintColor
+{
+    const CGFloat EffectColorAlpha = 0.6;
+    UIColor *effectColor = tintColor;
+    int componentCount = (int)CGColorGetNumberOfComponents(tintColor.CGColor);
+    if (componentCount == 2) {
+        CGFloat b;
+        if ([tintColor getWhite:&b alpha:NULL]) {
+            effectColor = [UIColor colorWithWhite:b alpha:EffectColorAlpha];
+        }
+    }
+    else {
+        CGFloat r, g, b;
+        if ([tintColor getRed:&r green:&g blue:&b alpha:NULL]) {
+            effectColor = [UIColor colorWithRed:r green:g blue:b alpha:EffectColorAlpha];
+        }
+    }
+    return [self applyBlurWithRadius:10 tintColor:effectColor saturationDeltaFactor:-1.0 maskImage:nil];
+}
+
+
+- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage
 {
     // Check pre-conditions.
     if (self.size.width < 1 || self.size.height < 1) {
@@ -125,6 +153,10 @@
     }
     if (!self.CGImage) {
         NSLog (@"*** error: image must be backed by a CGImage: %@", self);
+        return nil;
+    }
+    if (maskImage && !maskImage.CGImage) {
+        NSLog (@"*** error: maskImage must be backed by a CGImage: %@", maskImage);
         return nil;
     }
 
@@ -168,7 +200,7 @@
             // ... if d is odd, use three box-blurs of size 'd', centered on the output pixel.
             // 
             CGFloat inputRadius = blurRadius * [[UIScreen mainScreen] scale];
-            unsigned int radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
+            uint32_t radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
             if (radius % 2 != 1) {
                 radius += 1; // force radius to be odd so that the three box-blur methodology works.
             }
@@ -220,34 +252,18 @@
     // Draw effect image.
     if (hasBlur) {
         CGContextSaveGState(outputContext);
-        
-        /*
-        //Translate coordinates to top-left
-        CGContextTranslateCTM(outputContext, 0,self.size.height);
-        CGContextScaleCTM(outputContext, 1.0, -1.0);
-        
-        //Recalculating Blur area
-        CGRect regionOfInterestRect = CGRectMake(imageRect.origin.x, imageRect.origin.x, imageRect.size.width/2, imageRect.size.height/2);
-        
-*/
-        //Translate coordinates to top-left
-        CGContextTranslateCTM(outputContext, 0,self.size.height);
-        CGContextScaleCTM(outputContext, 1.0, -1.0);
-        
-        CGContextDrawImage(outputContext, rectOfInterest, effectImage.CGImage);
+        if (maskImage) {
+            CGContextClipToMask(outputContext, imageRect, maskImage.CGImage);
+        }
+        CGContextDrawImage(outputContext, imageRect, effectImage.CGImage);
         CGContextRestoreGState(outputContext);
     }
 
     // Add in color tint.
     if (tintColor) {
         CGContextSaveGState(outputContext);
-        
-        //Translate coordinates to top-left
-        CGContextTranslateCTM(outputContext, 0,self.size.height);
-        CGContextScaleCTM(outputContext, 1.0, -1.0);
-        
         CGContextSetFillColorWithColor(outputContext, tintColor.CGColor);
-        CGContextFillRect(outputContext, rectOfInterest);
+        CGContextFillRect(outputContext, imageRect);
         CGContextRestoreGState(outputContext);
     }
 

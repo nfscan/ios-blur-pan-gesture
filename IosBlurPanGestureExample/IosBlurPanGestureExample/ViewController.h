@@ -12,6 +12,7 @@
 //Categories
 #import "UIImageView+CoordinateTransform.h"
 #import "UIImage+ImageEffects.h"
+#import "UIImage+Common.h"
 
 @interface ViewController : UIViewController
 

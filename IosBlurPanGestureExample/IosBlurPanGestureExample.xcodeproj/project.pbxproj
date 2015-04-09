@@ -17,10 +17,11 @@
 		A627E55C1AD6F31900770354 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E55A1AD6F30200770354 /* CoreGraphics.framework */; };
 		A627E55E1AD6F32000770354 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E55D1AD6F32000770354 /* UIKit.framework */; };
 		A627E5601AD6F32700770354 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E55F1AD6F32700770354 /* Foundation.framework */; };
-		A627E5641AD6F3CE00770354 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A627E5631AD6F3CE00770354 /* UIImage+ImageEffects.m */; };
 		A627E5661AD7078300770354 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E5651AD7078300770354 /* AVFoundation.framework */; };
 		A627E5681AD70D9400770354 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E5671AD70D9400770354 /* Accelerate.framework */; };
 		A6E4C6051AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */; };
+		A6E4C6081AD7247400EC7DBD /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */; };
+		A6E4C60B1AD7254000EC7DBD /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,13 +51,15 @@
 		A627E55A1AD6F30200770354 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A627E55D1AD6F32000770354 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A627E55F1AD6F32700770354 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		A627E5621AD6F3CE00770354 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		A627E5631AD6F3CE00770354 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		A627E5651AD7078300770354 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A627E5671AD70D9400770354 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		A6E4C6011AD71BCD00EC7DBD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CoordinateTransform.h"; sourceTree = "<group>"; };
 		A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CoordinateTransform.m"; sourceTree = "<group>"; };
+		A6E4C6061AD7247400EC7DBD /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
+		A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
+		A6E4C6091AD7254000EC7DBD /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +107,8 @@
 		A627E5331AD6F29F00770354 /* IosBlurPanGestureExample */ = {
 			isa = PBXGroup;
 			children = (
-				A627E5621AD6F3CE00770354 /* UIImage+ImageEffects.h */,
-				A627E5631AD6F3CE00770354 /* UIImage+ImageEffects.m */,
+				A6E4C6091AD7254000EC7DBD /* UIImage+ImageEffects.h */,
+				A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */,
 				A627E5381AD6F29F00770354 /* AppDelegate.h */,
 				A627E5391AD6F29F00770354 /* AppDelegate.m */,
 				A627E53B1AD6F29F00770354 /* ViewController.h */,
@@ -116,6 +119,8 @@
 				A627E5341AD6F29F00770354 /* Supporting Files */,
 				A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */,
 				A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */,
+				A6E4C6061AD7247400EC7DBD /* UIImage+Common.h */,
+				A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */,
 			);
 			path = IosBlurPanGestureExample;
 			sourceTree = "<group>";
@@ -259,10 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A627E5641AD6F3CE00770354 /* UIImage+ImageEffects.m in Sources */,
 				A627E53D1AD6F29F00770354 /* ViewController.m in Sources */,
 				A627E53A1AD6F29F00770354 /* AppDelegate.m in Sources */,
+				A6E4C60B1AD7254000EC7DBD /* UIImage+ImageEffects.m in Sources */,
 				A6E4C6051AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m in Sources */,
+				A6E4C6081AD7247400EC7DBD /* UIImage+Common.m in Sources */,
 				A627E5371AD6F29F00770354 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -42,7 +42,7 @@
  POSSIBILITY OF SUCH DAMAGE.
  
  Copyright (C) 2013 Apple Inc. All Rights Reserved.
- Modified work Copyright (c) 2015 Paulo Miguel Almeida Rodenas <paulo.ubuntu@gmail.com>
+ 
  
  Copyright © 2013 Apple Inc. All rights reserved.
  WWDC 2013 License
@@ -97,8 +97,11 @@
 
 @interface UIImage (ImageEffects)
 
-- (UIImage *)applyLightEffectWithRectOfInterest:(CGRect) rectOfInterest ;
-- (UIImage *)applyDarkEffectWithRectOfInterest:(CGRect) rectOfInterest ;
-- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor rectOfInterest:(CGRect) rectOfInterest ;
+- (UIImage *)applyLightEffect;
+- (UIImage *)applyExtraLightEffect;
+- (UIImage *)applyDarkEffect;
+- (UIImage *)applyTintEffectWithColor:(UIColor *)tintColor;
+
+- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage;
 
 @end

@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DisplayImage" translatesAutoresizingMaskIntoConstraints="NO" id="dJu-8S-cfl">
+                            <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DisplayImage" translatesAutoresizingMaskIntoConstraints="NO" id="dJu-8S-cfl">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -37,10 +37,10 @@
                                 <exclude reference="dJu-8S-cfl"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="e8J-31-LMz"/>
                                 <exclude reference="EZG-Mv-PtU"/>
                                 <exclude reference="aVn-r9-2jU"/>
                                 <exclude reference="lAC-He-wjD"/>
+                                <exclude reference="e8J-31-LMz"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -48,10 +48,10 @@
                                 <include reference="dJu-8S-cfl"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="e8J-31-LMz"/>
                                 <include reference="EZG-Mv-PtU"/>
                                 <include reference="aVn-r9-2jU"/>
                                 <include reference="lAC-He-wjD"/>
+                                <include reference="e8J-31-LMz"/>
                             </mask>
                         </variation>
                     </view>
