@@ -43,6 +43,7 @@
  
  Copyright (C) 2013 Apple Inc. All Rights Reserved.
  
+ Modified work Copyright (C) 2015 Paulo Miguel Almeida Rodenas <paulo.ubuntu@gmail.com>.
  
  Copyright © 2013 Apple Inc. All rights reserved.
  WWDC 2013 License

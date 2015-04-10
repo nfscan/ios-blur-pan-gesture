@@ -43,6 +43,8 @@
  
  Copyright (C) 2013 Apple Inc. All Rights Reserved.
  
+ Modified work Copyright (C) 2015 Paulo Miguel Almeida Rodenas <paulo.ubuntu@gmail.com>.
+ 
  
  Copyright © 2013 Apple Inc. All rights reserved.
  WWDC 2013 License
@@ -255,7 +257,9 @@
         if (maskImage) {
             CGContextClipToMask(outputContext, imageRect, maskImage.CGImage);
         }
-        CGContextDrawImage(outputContext, imageRect, effectImage.CGImage);
+        
+        UIImage* roundedImage = [self makeRoundedImage:effectImage radius:20.0f];
+        CGContextDrawImage(outputContext, imageRect, roundedImage.CGImage);
         CGContextRestoreGState(outputContext);
     }
 
@@ -263,7 +267,7 @@
     if (tintColor) {
         CGContextSaveGState(outputContext);
         CGContextSetFillColorWithColor(outputContext, tintColor.CGColor);
-        CGContextFillRect(outputContext, imageRect);
+        CGContextFillEllipseInRect(outputContext, imageRect);
         CGContextRestoreGState(outputContext);
     }
 
@@ -274,5 +278,24 @@
     return outputImage;
 }
 
+
+// Credits : http://stackoverflow.com/a/11067131/832748
+-(UIImage *)makeRoundedImage:(UIImage *) image
+                      radius: (float) radius;
+{
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    imageLayer.contents = (id) image.CGImage;
+    
+    imageLayer.masksToBounds = YES;
+    imageLayer.cornerRadius = radius;
+    
+    UIGraphicsBeginImageContext(image.size);
+    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return roundedImage;
+}
 
 @end
