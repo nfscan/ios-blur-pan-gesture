@@ -8,7 +8,7 @@ An example of how to use your finger to blur some parts of an UIImage
 
 Paulo Miguel Almeida Rodenas
 
-- https://twitter.com/PauloAlmeidaRod
+- https://twitter.com/PauloMigAlmeida
 
 ## Licence
 
