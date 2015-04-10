@@ -54,12 +54,12 @@
 		A627E5651AD7078300770354 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A627E5671AD70D9400770354 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		A6E4C6011AD71BCD00EC7DBD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CoordinateTransform.h"; sourceTree = "<group>"; };
-		A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CoordinateTransform.m"; sourceTree = "<group>"; };
+		A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+CoordinateTransform.h"; path = "IosBlurPanGestureExample/UIImageView+CoordinateTransform.h"; sourceTree = "<group>"; };
+		A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+CoordinateTransform.m"; path = "IosBlurPanGestureExample/UIImageView+CoordinateTransform.m"; sourceTree = "<group>"; };
 		A6E4C6061AD7247400EC7DBD /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
 		A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
-		A6E4C6091AD7254000EC7DBD /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		A6E4C6091AD7254000EC7DBD /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "IosBlurPanGestureExample/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageEffects.m"; path = "IosBlurPanGestureExample/UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +85,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		914348731AD832B3000EC55D /* Thirdparty */ = {
+			isa = PBXGroup;
+			children = (
+				A6E4C6091AD7254000EC7DBD /* UIImage+ImageEffects.h */,
+				A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */,
+				A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */,
+				A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */,
+			);
+			name = Thirdparty;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		A627E5281AD6F29F00770354 = {
 			isa = PBXGroup;
 			children = (
@@ -107,8 +119,7 @@
 		A627E5331AD6F29F00770354 /* IosBlurPanGestureExample */ = {
 			isa = PBXGroup;
 			children = (
-				A6E4C6091AD7254000EC7DBD /* UIImage+ImageEffects.h */,
-				A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */,
+				914348731AD832B3000EC55D /* Thirdparty */,
 				A627E5381AD6F29F00770354 /* AppDelegate.h */,
 				A627E5391AD6F29F00770354 /* AppDelegate.m */,
 				A627E53B1AD6F29F00770354 /* ViewController.h */,
@@ -117,8 +128,6 @@
 				A627E5411AD6F29F00770354 /* Images.xcassets */,
 				A627E5431AD6F29F00770354 /* LaunchScreen.xib */,
 				A627E5341AD6F29F00770354 /* Supporting Files */,
-				A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */,
-				A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */,
 				A6E4C6061AD7247400EC7DBD /* UIImage+Common.h */,
 				A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */,
 			);
