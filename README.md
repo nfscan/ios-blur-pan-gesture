@@ -13,3 +13,7 @@ Paulo Miguel Almeida Rodenas
 ## Licence
 
 MIT 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pauloubuntu/ios-blur-pan-gesture/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
