@@ -2,7 +2,7 @@
 //  ViewController.m
 //  IosBlurPanGestureExample
 //
-//  Version 0.0.1
+//  Version 0.0.2
 //
 //  The MIT License (MIT)
 //
@@ -34,12 +34,26 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pagGestureRecognizer;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
+@property (nonatomic) InputMethod inputMethod;
+@property (strong, nonatomic) NSMutableArray* drawRectArray; //of CGRect
 @end
+
 
 @implementation ViewController
 
+#pragma mark - UIViewController lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.inputMethod = DrawBlurContinuously;
+}
 
 #pragma mark - Actions methods
 
@@ -50,16 +64,51 @@
     //Check if it's within UIImage's bounds
     if(!CGPointEqualToPoint(imageTouchPoint, CGPointZero)){
         NSLog(@"%s It's inside image's bounds",__PRETTY_FUNCTION__);
+
         //Extract the region of interest of that image
         CGRect rectOfInterest = {imageTouchPoint, CGSizeMake(40, 40)};
-        //Crop it
-        UIImage *croppedImage = [self.imageView.image cropImage:rectOfInterest];
-        //Apply a blur effect on it
-        UIImage *effectImage = [croppedImage applyLightEffect];
         
-        //Draw the blurred image on the original image
-        UIImage* newImage = [self.imageView.image drawImage:effectImage inRect:rectOfInterest];
-        self.imageView.image = newImage;
+        if(self.inputMethod == DrawBlurContinuously)
+        {
+            //Crop it
+            UIImage *croppedImage = [self.imageView.image cropImage:rectOfInterest];
+            //Apply a blur effect on it
+            UIImage *effectImage = [croppedImage applyLightEffect];
+            
+            //Draw the blurred image on the original image
+            UIImage* newImage = [self.imageView.image drawImage:effectImage inRect:rectOfInterest];
+            self.imageView.image = newImage;
+        }
+        else if (self.inputMethod == DrawBlurInARect)
+        {
+            switch (sender.state) {
+                case UIGestureRecognizerStateBegan:
+                    self.drawRectArray = [[NSMutableArray alloc] init];
+                case UIGestureRecognizerStateChanged:
+                    [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
+                    break;
+                case UIGestureRecognizerStateEnded:
+                    
+                    break;
+                    
+                default:
+                    NSLog(@"%s state not handled: %lu",__PRETTY_FUNCTION__, sender.state);
+                    break;
+            }
+            if(sender.state == UIGestureRecognizerStateBegan)
+            {
+                self.drawRectArray = [[NSMutableArray alloc] init];
+                [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
+            }
+            else if(sender.state == UIGestureRecognizerStateChanged)
+            {
+                [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
+            }
+            else if (sender.state == UIGestureRecognizerStateEnded)
+            {
+                
+            }
+        }
     
     }else{
         NSLog(@"%s It's outside image's bounds",__PRETTY_FUNCTION__);
@@ -70,9 +119,29 @@
     // Reseting the UIImage to its original state
     self.imageView.image = [UIImage imageNamed:@"DisplayImage"];
 }
+
+- (IBAction)touchedUpInputMethodButton:(id)sender {
+    [self setInputMethod:(self.inputMethod == DrawBlurContinuously ? DrawBlurInARect : DrawBlurContinuously)];
+}
+
+
 - (IBAction)touchedSaveToCameraRollButton:(id)sender {
     // Saving it to Camera Roll
     UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+#pragma mark - Getters/Setters methods
+
+- (void)setInputMethod:(InputMethod)inputMethod {
+    if(inputMethod == DrawBlurContinuously)
+    {
+        self.descriptionLabel.text = @"Blurring image continuously";
+    }
+    else
+    {
+        self.descriptionLabel.text = @"Blurring image in a rect";
+    }
+    _inputMethod = inputMethod;
 }
 
 #pragma mark - Delegate methods

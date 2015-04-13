@@ -2,7 +2,7 @@
 //  ViewController.h
 //  IosBlurPanGestureExample
 //
-//  Version 0.0.1
+//  Version 0.0.2
 //
 //  The MIT License (MIT)
 //
@@ -38,6 +38,11 @@
 #import "UIImageView+CoordinateTransform.h"
 #import "UIImage+ImageEffects.h"
 #import "UIImage+Common.h"
+
+typedef enum {
+    DrawBlurContinuously,
+    DrawBlurInARect
+} InputMethod;
 
 @interface ViewController : UIViewController
 

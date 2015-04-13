@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,52 +18,63 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DisplayImage" translatesAutoresizingMaskIntoConstraints="NO" id="jDE-aq-mdC">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="549"/>
+                                <rect key="frame" x="0.0" y="41" width="600" height="515"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="8Dl-9j-5J3" appends="YES" id="71K-t2-7Hc"/>
                                 </connections>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dt-jJ-Cap">
-                                <rect key="frame" x="443" y="562" width="141" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWA-zz-SgN">
+                                <rect key="frame" x="0.0" y="20" width="600" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="141" id="9we-Jc-hMt"/>
-                                    <constraint firstAttribute="height" constant="30" id="i6n-W4-zPV"/>
+                                    <constraint firstAttribute="height" constant="21" id="Bzz-zl-yoF"/>
                                 </constraints>
-                                <state key="normal" title="Save to Camera Roll">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchedSaveToCameraRollButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mOm-A6-QC7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vxl-Yp-JRc">
-                                <rect key="frame" x="16" y="562" width="81" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Pq-hI-oan">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="6TG-9M-3dd"/>
-                                    <constraint firstAttribute="width" constant="81" id="Fmv-gs-Ex1"/>
+                                    <constraint firstAttribute="height" constant="44" id="MH3-Eh-abE"/>
                                 </constraints>
-                                <state key="normal" title="Reset">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchedUpResetButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jOc-lY-XvG"/>
-                                </connections>
-                            </button>
+                                <items>
+                                    <barButtonItem title="Reset" id="2tu-wM-nIR">
+                                        <connections>
+                                            <action selector="touchedUpResetButton:" destination="vXZ-lx-hvc" id="Kjr-gA-GUd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cV9-nz-tdv"/>
+                                    <barButtonItem title="Input Method" id="8b1-h6-jal">
+                                        <connections>
+                                            <action selector="touchedUpInputMethodButton:" destination="vXZ-lx-hvc" id="ccl-Mp-KTS"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aBo-WF-mJ6"/>
+                                    <barButtonItem title="Save" id="w99-Nb-Pm4">
+                                        <connections>
+                                            <action selector="touchedSaveToCameraRollButton:" destination="vXZ-lx-hvc" id="sAy-dF-1TN"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Vxl-Yp-JRc" secondAttribute="bottom" constant="8" id="DUr-YW-Hh1"/>
-                            <constraint firstItem="4dt-jJ-Cap" firstAttribute="top" secondItem="jDE-aq-mdC" secondAttribute="bottom" constant="13" id="DXP-8y-Qoj"/>
-                            <constraint firstItem="Vxl-Yp-JRc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="Ots-ui-n7k"/>
-                            <constraint firstItem="jDE-aq-mdC" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="QUc-VA-b7a"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="4dt-jJ-Cap" secondAttribute="bottom" constant="8" id="WXE-dK-Z7a"/>
-                            <constraint firstItem="jDE-aq-mdC" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="qFj-vV-gsD"/>
-                            <constraint firstAttribute="trailing" secondItem="jDE-aq-mdC" secondAttribute="trailing" id="w1v-gY-a4g"/>
-                            <constraint firstAttribute="trailing" secondItem="4dt-jJ-Cap" secondAttribute="trailing" constant="16" id="yJo-4U-s1r"/>
+                            <constraint firstItem="jDE-aq-mdC" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="6gN-Bj-M1M"/>
+                            <constraint firstItem="nWA-zz-SgN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="91z-xG-pSN"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="6Pq-hI-oan" secondAttribute="bottom" id="9CI-Gm-SII"/>
+                            <constraint firstItem="6Pq-hI-oan" firstAttribute="top" secondItem="jDE-aq-mdC" secondAttribute="bottom" id="Ki0-2c-URY"/>
+                            <constraint firstAttribute="trailing" secondItem="6Pq-hI-oan" secondAttribute="trailing" id="Wq7-Kb-4w2"/>
+                            <constraint firstAttribute="trailing" secondItem="jDE-aq-mdC" secondAttribute="trailing" id="c4r-kL-OFq"/>
+                            <constraint firstAttribute="trailing" secondItem="nWA-zz-SgN" secondAttribute="trailing" id="e1W-Eb-NOg"/>
+                            <constraint firstItem="nWA-zz-SgN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="eiJ-zr-PJT"/>
+                            <constraint firstItem="6Pq-hI-oan" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fmw-9t-aFO"/>
+                            <constraint firstItem="jDE-aq-mdC" firstAttribute="top" secondItem="nWA-zz-SgN" secondAttribute="bottom" id="hIN-C5-zfc"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="descriptionLabel" destination="nWA-zz-SgN" id="F8X-vq-Qsn"/>
                         <outlet property="imageView" destination="jDE-aq-mdC" id="B7Z-Ok-9UC"/>
                         <outlet property="pagGestureRecognizer" destination="8Dl-9j-5J3" id="GGB-eP-sGz"/>
                     </connections>
