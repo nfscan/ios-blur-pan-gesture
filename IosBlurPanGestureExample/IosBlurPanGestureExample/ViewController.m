@@ -46,6 +46,10 @@
 
 @implementation ViewController
 
+#define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define DEFAULT_ROI_WIDTH   40
+#define DEFAULT_ROI_HEIGHT   40
+
 #pragma mark - UIViewController lifecycle
 
 - (void)viewDidLoad
@@ -66,47 +70,54 @@
         NSLog(@"%s It's inside image's bounds",__PRETTY_FUNCTION__);
 
         //Extract the region of interest of that image
-        CGRect rectOfInterest = {imageTouchPoint, CGSizeMake(40, 40)};
+        CGRect rectOfInterest = {imageTouchPoint, CGSizeMake(DEFAULT_ROI_WIDTH, DEFAULT_ROI_HEIGHT)};
         
         if(self.inputMethod == DrawBlurContinuously)
         {
-            //Crop it
-            UIImage *croppedImage = [self.imageView.image cropImage:rectOfInterest];
-            //Apply a blur effect on it
-            UIImage *effectImage = [croppedImage applyLightEffect];
+            // Blur
+            [self blurRegionOfInterest:rectOfInterest];
             
-            //Draw the blurred image on the original image
-            UIImage* newImage = [self.imageView.image drawImage:effectImage inRect:rectOfInterest];
-            self.imageView.image = newImage;
         }
         else if (self.inputMethod == DrawBlurInARect)
         {
+
             switch (sender.state) {
                 case UIGestureRecognizerStateBegan:
                     self.drawRectArray = [[NSMutableArray alloc] init];
+                    break;
                 case UIGestureRecognizerStateChanged:
                     [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
                     break;
                 case UIGestureRecognizerStateEnded:
+                {
+                    CGFloat minx = [[self.drawRectArray valueForKeyPath:@"@min.x"] floatValue];
+                    CGFloat miny = [[self.drawRectArray valueForKeyPath:@"@min.y"] floatValue];
+                    CGFloat maxx = [[self.drawRectArray valueForKeyPath:@"@max.x"] floatValue];
+                    CGFloat maxy = [[self.drawRectArray valueForKeyPath:@"@max.y"] floatValue];
+
+                    // Calculate Rect we're going to blur later
+                    rectOfInterest = CGRectMake(minx, miny, maxx - minx, maxy - miny);
+                    
+                    if(rectOfInterest.size.width < DEFAULT_ROI_WIDTH)
+                    {
+                        // Vertical Rect
+                       rectOfInterest = CGRectMake(minx, miny, DEFAULT_ROI_WIDTH, maxy - miny);
+                    }
+                    else if (rectOfInterest.size.height < DEFAULT_ROI_HEIGHT)
+                    {
+                        // Horizontal Rect
+                        rectOfInterest = CGRectMake(minx, miny, maxx - minx, DEFAULT_ROI_HEIGHT);
+                    }
+
+                    // Blur
+                    [self blurRegionOfInterest:rectOfInterest];
                     
                     break;
-                    
+                }
+
                 default:
-                    NSLog(@"%s state not handled: %lu",__PRETTY_FUNCTION__, sender.state);
+                    NSLog(@"%s state not handled: %ld",__PRETTY_FUNCTION__, sender.state);
                     break;
-            }
-            if(sender.state == UIGestureRecognizerStateBegan)
-            {
-                self.drawRectArray = [[NSMutableArray alloc] init];
-                [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
-            }
-            else if(sender.state == UIGestureRecognizerStateChanged)
-            {
-                [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
-            }
-            else if (sender.state == UIGestureRecognizerStateEnded)
-            {
-                
             }
         }
     
@@ -128,6 +139,19 @@
 - (IBAction)touchedSaveToCameraRollButton:(id)sender {
     // Saving it to Camera Roll
     UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+#pragma mark - Utility methods
+
+-(void) blurRegionOfInterest:(CGRect) rectOfInterest
+{
+    //Crop it
+    UIImage *croppedImage = [self.imageView.image cropImage:rectOfInterest];
+    //Apply a blur effect on it
+    UIImage *effectImage = [croppedImage applyLightEffect];
+    //Draw the blurred image on the original image
+    UIImage* newImage = [self.imageView.image drawImage:effectImage inRect:rectOfInterest];
+    self.imageView.image = newImage;
 }
 
 #pragma mark - Getters/Setters methods
@@ -158,8 +182,6 @@
     }
 }
 
-
-#define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 -(void) buildAlert:(NSString*) title message:(NSString*) message
 {
     if(IS_OS_8_OR_LATER)

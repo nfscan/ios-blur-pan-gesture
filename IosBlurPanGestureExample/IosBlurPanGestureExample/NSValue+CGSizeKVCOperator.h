@@ -1,8 +1,8 @@
 //
-//  ViewController.h
+//  NSValue+CGSizeKVCOperator.h
 //  IosBlurPanGestureExample
 //
-//  Version 0.0.2
+//  Version 0.0.1
 //
 //  The MIT License (MIT)
 //
@@ -31,23 +31,11 @@
 //  THE SOFTWARE.
 //
 
-//Libraries
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 
-//Categories
-#import "UIImageView+CoordinateTransform.h"
-#import "UIImage+ImageEffects.h"
-#import "UIImage+Common.h"
-#import "NSValue+CGSizeKVCOperator.h"
+@interface NSValue (CGSizeKVCOperator)
 
-typedef enum {
-    DrawBlurContinuously,
-    DrawBlurInARect
-} InputMethod;
-
-@interface ViewController : UIViewController
-
+-(id) valueForKey:(NSString *)key;
 
 @end
-

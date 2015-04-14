@@ -19,6 +19,7 @@
 		A627E5601AD6F32700770354 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E55F1AD6F32700770354 /* Foundation.framework */; };
 		A627E5661AD7078300770354 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E5651AD7078300770354 /* AVFoundation.framework */; };
 		A627E5681AD70D9400770354 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A627E5671AD70D9400770354 /* Accelerate.framework */; };
+		A646889C1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = A646889B1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.m */; };
 		A6E4C6051AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */; };
 		A6E4C6081AD7247400EC7DBD /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */; };
 		A6E4C60B1AD7254000EC7DBD /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E4C60A1AD7254000EC7DBD /* UIImage+ImageEffects.m */; };
@@ -53,6 +54,8 @@
 		A627E55F1AD6F32700770354 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A627E5651AD7078300770354 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A627E5671AD70D9400770354 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		A646889A1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+CGSizeKVCOperator.h"; sourceTree = "<group>"; };
+		A646889B1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CGSizeKVCOperator.m"; sourceTree = "<group>"; };
 		A6E4C6011AD71BCD00EC7DBD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A6E4C6031AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+CoordinateTransform.h"; path = "IosBlurPanGestureExample/UIImageView+CoordinateTransform.h"; sourceTree = "<group>"; };
 		A6E4C6041AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+CoordinateTransform.m"; path = "IosBlurPanGestureExample/UIImageView+CoordinateTransform.m"; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 				A627E5341AD6F29F00770354 /* Supporting Files */,
 				A6E4C6061AD7247400EC7DBD /* UIImage+Common.h */,
 				A6E4C6071AD7247400EC7DBD /* UIImage+Common.m */,
+				A646889A1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.h */,
+				A646889B1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.m */,
 			);
 			path = IosBlurPanGestureExample;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				A627E53A1AD6F29F00770354 /* AppDelegate.m in Sources */,
 				A6E4C60B1AD7254000EC7DBD /* UIImage+ImageEffects.m in Sources */,
 				A6E4C6051AD71D1D00EC7DBD /* UIImageView+CoordinateTransform.m in Sources */,
+				A646889C1ADD817000FD4B97 /* NSValue+CGSizeKVCOperator.m in Sources */,
 				A6E4C6081AD7247400EC7DBD /* UIImage+Common.m in Sources */,
 				A627E5371AD6F29F00770354 /* main.m in Sources */,
 			);
