@@ -142,7 +142,7 @@
     CGFloat maxy = [[self.drawRectArray valueForKeyPath:@"@max.y"] floatValue];
     
     // Calculate Rect we're going to blur later
-    CGRect rectOfInterest = CGRectMake(minx, miny, DEFAULT_ROI_WIDTH + (maxx - minx), maxy - miny);
+    CGRect rectOfInterest = CGRectMake(minx, miny, DEFAULT_ROI_WIDTH + (maxx - minx), DEFAULT_ROI_HEIGHT + (maxy - miny));
     
     if(rectOfInterest.size.width < DEFAULT_ROI_WIDTH)
     {
