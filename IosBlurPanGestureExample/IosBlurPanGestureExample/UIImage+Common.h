@@ -36,5 +36,6 @@
 @interface UIImage (Common)
 
 -(UIImage*) cropImage:(CGRect) rectOfInterest;
-- (UIImage *)drawImage:(UIImage *)inputImage inRect:(CGRect)frame;
+-(UIImage *)drawImage:(UIImage *)inputImage inRect:(CGRect)frame;
+-(UIImage*) drawOverlayWithColor:(UIColor*) color;
 @end

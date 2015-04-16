@@ -75,4 +75,18 @@
     return newImage;
 }
 
+-(UIImage*) drawOverlayWithColor:(UIColor*) color
+{
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
+    [self drawInRect:CGRectMake(0.0, 0.0, self.size.width, self.size.height)];
+    CGColorRef colorRef = [color CGColor];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, colorRef);
+    CGContextFillRect(context, CGRectMake(0.0, 0.0, self.size.width, self.size.height));
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+    
+}
+
 @end

@@ -39,8 +39,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
+// flow variables
 @property (nonatomic) InputMethod inputMethod;
 @property (strong, nonatomic) NSMutableArray* drawRectArray; //of CGRect
+@property (strong, nonatomic) UIImage* baseImageToBeBlurred;
 @end
 
 
@@ -55,8 +57,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.inputMethod = DrawBlurContinuously;
+    self.baseImageToBeBlurred = self.imageView.image;
+    self.inputMethod = DrawBlurInARect;
 }
 
 #pragma mark - Actions methods
@@ -84,31 +86,18 @@
             switch (sender.state) {
                 case UIGestureRecognizerStateBegan:
                     self.drawRectArray = [[NSMutableArray alloc] init];
-                    break;
                 case UIGestureRecognizerStateChanged:
+                {
                     [self.drawRectArray addObject:[NSValue valueWithCGRect:rectOfInterest]];
+
+                    rectOfInterest = [self calculateUnionRectOfInterest];
+                    // Draw area selection overlay
+                    [self drawOverlayOnRegionOfInterest:rectOfInterest];
                     break;
+                }
                 case UIGestureRecognizerStateEnded:
                 {
-                    CGFloat minx = [[self.drawRectArray valueForKeyPath:@"@min.x"] floatValue];
-                    CGFloat miny = [[self.drawRectArray valueForKeyPath:@"@min.y"] floatValue];
-                    CGFloat maxx = [[self.drawRectArray valueForKeyPath:@"@max.x"] floatValue];
-                    CGFloat maxy = [[self.drawRectArray valueForKeyPath:@"@max.y"] floatValue];
-
-                    // Calculate Rect we're going to blur later
-                    rectOfInterest = CGRectMake(minx, miny, maxx - minx, maxy - miny);
-                    
-                    if(rectOfInterest.size.width < DEFAULT_ROI_WIDTH)
-                    {
-                        // Vertical Rect
-                       rectOfInterest = CGRectMake(minx, miny, DEFAULT_ROI_WIDTH, maxy - miny);
-                    }
-                    else if (rectOfInterest.size.height < DEFAULT_ROI_HEIGHT)
-                    {
-                        // Horizontal Rect
-                        rectOfInterest = CGRectMake(minx, miny, maxx - minx, DEFAULT_ROI_HEIGHT);
-                    }
-
+                    rectOfInterest = [self calculateUnionRectOfInterest];
                     // Blur
                     [self blurRegionOfInterest:rectOfInterest];
                     
@@ -129,12 +118,13 @@
 - (IBAction)touchedUpResetButton:(id)sender {
     // Reseting the UIImage to its original state
     self.imageView.image = [UIImage imageNamed:@"DisplayImage"];
+    self.baseImageToBeBlurred = self.imageView.image;
 }
 
 - (IBAction)touchedUpInputMethodButton:(id)sender {
+    //Change the way we're going to blur this image
     [self setInputMethod:(self.inputMethod == DrawBlurContinuously ? DrawBlurInARect : DrawBlurContinuously)];
 }
-
 
 - (IBAction)touchedSaveToCameraRollButton:(id)sender {
     // Saving it to Camera Roll
@@ -143,16 +133,57 @@
 
 #pragma mark - Utility methods
 
+-(CGRect) calculateUnionRectOfInterest
+{
+    //Retrieves the extreme points from each coordinate (x,y)
+    CGFloat minx = [[self.drawRectArray valueForKeyPath:@"@min.x"] floatValue];
+    CGFloat miny = [[self.drawRectArray valueForKeyPath:@"@min.y"] floatValue];
+    CGFloat maxx = [[self.drawRectArray valueForKeyPath:@"@max.x"] floatValue];
+    CGFloat maxy = [[self.drawRectArray valueForKeyPath:@"@max.y"] floatValue];
+    
+    // Calculate Rect we're going to blur later
+    CGRect rectOfInterest = CGRectMake(minx, miny, DEFAULT_ROI_WIDTH + (maxx - minx), maxy - miny);
+    
+    if(rectOfInterest.size.width < DEFAULT_ROI_WIDTH)
+    {
+        // Vertical Rect
+        rectOfInterest = CGRectMake(minx, miny, DEFAULT_ROI_WIDTH, maxy - miny);
+    }
+    else if (rectOfInterest.size.height < DEFAULT_ROI_HEIGHT)
+    {
+        // Horizontal Rect
+        rectOfInterest = CGRectMake(minx, miny, maxx - minx, DEFAULT_ROI_HEIGHT);
+    }
+    
+    return rectOfInterest;
+}
+
 -(void) blurRegionOfInterest:(CGRect) rectOfInterest
 {
     //Crop it
-    UIImage *croppedImage = [self.imageView.image cropImage:rectOfInterest];
+    UIImage *croppedImage = [self.baseImageToBeBlurred cropImage:rectOfInterest];
     //Apply a blur effect on it
     UIImage *effectImage = [croppedImage applyLightEffect];
     //Draw the blurred image on the original image
     UIImage* newImage = [self.imageView.image drawImage:effectImage inRect:rectOfInterest];
+    //Save blurred image into another variable to preserve from unwanted modifications
+    self.baseImageToBeBlurred = newImage;
+    //Shows it up
+    self.imageView.image = self.baseImageToBeBlurred;
+}
+
+-(void) drawOverlayOnRegionOfInterest:(CGRect) rectOfInterest
+{
+    //Crop it
+    UIImage *croppedImage = [self.baseImageToBeBlurred cropImage:rectOfInterest];
+    //Draw a overlay on the cropped image
+    UIImage *overlayImage = [croppedImage drawOverlayWithColor:[UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.3]];
+    //Draw 'em together
+    UIImage* newImage = [self.baseImageToBeBlurred drawImage:overlayImage inRect:rectOfInterest];
+    //Shows it up
     self.imageView.image = newImage;
 }
+
 
 #pragma mark - Getters/Setters methods
 
